@@ -1,41 +1,14 @@
-const express = require("express")
+import express from 'express'
+
+import { listUsers, createUser } from './controllers.js'
 
 const app = express()
 
-app.use(express.json())
+app.use(express.json()) // Permite o express receber Json no doby
 
-const users = [
-    {
-        "name": "Leonardo",
-        "email": "leo@email.com",
-        "createAt": new Date(),
-        "updateAt": new Date()
-    },
-    {
-        "name": "Karla",
-        "email": "karla@email.com",
-        "createAt": new Date(),
-        "updateAt": new Date()
-    },
-    {
-        "name": "Jeff",
-        "email": "jeff@email.com",
-        "createAt": new Date(),
-        "updateAt": new Date()
-    },
-    
-]
+app.get ("/users", listUsers)
 
-app.get ("/users", (request, response) => {
-    return response.json(users)
-})
-
-app.post("/users", (resquest, response) => {
-    const data = resquest.body
-    console.log(data)
-    users.push(data)
-    return response.json(data)
-})
+app.post("/users", createUser)
 
 app.listen(3333, () => {
     console.log("SERVER ON")
